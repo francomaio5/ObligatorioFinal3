@@ -1,6 +1,8 @@
 package Test;
 
-import com.aventstack.extentreports.Status;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,11 +11,7 @@ import java.lang.reflect.Method;
 public class TestClass extends BaseTestClass {
 
     @Test
-    public void testRegistro(Method method, String nombre, String apellido){
-        //Reporte
-//        extentTest = extentReports.createTest(method.getName());
-//        extentTest.log(Status.INFO, "Registrando al usuario " + nombre + apellido);
-        //Caso de Prueba
+    public void testRegistro(){
         registerPage = homePage.goRegisterPage();
         registerCompletePage = registerPage.registerNewUser("Juan", "Gonzales",
                 "maildetest10@gmail.com", "lacontrasenia1234");
@@ -23,73 +21,75 @@ public class TestClass extends BaseTestClass {
     }
 
     @Test
-    public void checkOutWithoutCC(String object, Method method) {
-        //Reporte
-//        extentTest = extentReports.createTest(method.getName());
-//        extentTest.log(Status.INFO, "Buscando articulo " + object + "pagandolo con efectivo");
-        //Caso de Prueba
+    public void checkOutEefectivo() {
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
-        searchPage = homePage.searchElement("Nokia");
-        searchPage.addToCart("Nokia");
+        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
+        searchPage = homePage.searchElement("Nokia Lumia 1020");
+        searchPage.addToCart("Nokia Lumia 1020");
         cartPage = searchPage.goCartPage();
         checkOutPage = cartPage.goCheckOutPage();
-        checkOutConfirmationPage = checkOutPage.doCheckOut("Tata", "Uruguay", "Montevideo",
-           "Zapican 2507", "Santa Fe", "2507", "094778188",
-            "094778188", "Next Day Air", "Not Credit Card",
-                "Master card", "Mario Perez", "15341846135",
-                "05", "2020", "758");
-        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
+        checkOutPage.billingAddressSet("Uruguay","Montevideo", "lala123",
+                "7487", "099477811");
+        checkOutPage.shippingAddressSet("Uruguay","Montevideo","Agraciasda",
+                "3511", "094778188");
+        checkOutPage.setShippingMethod("method");
+        checkOutPage.setPaymentMethAndInfo("No Credit Card", "", "",
+                "","", "", "");
+        checkOutConfirmationPage = checkOutPage.confirmOrder();
         homePage = checkOutConfirmationPage.goLogOut();
+        driver.quit();
     }
 
     @Test
-    public void checkOutWithCC(String object, Method method) {
-        //Reporte
-//        extentTest = extentReports.createTest(method.getName());
-//        extentTest.log(Status.INFO, "Buscando articulo " + object + "pagandolo con Tarjeta de Crédito");
-        //Caso de Prueba
+    public void checkOutCreditCard() {
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
-        searchPage = homePage.searchElement("Nokia");
-        searchPage.addToCart("Nokia");
+        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
+        searchPage = homePage.searchElement("Nokia Lumia 1020");
+        searchPage.addToCart("Nokia Lumia 1020");
         cartPage = searchPage.goCartPage();
         checkOutPage = cartPage.goCheckOutPage();
-        checkOutConfirmationPage = checkOutPage.doCheckOut("Tata", "Uruguay", "Montevideo",
-                "Zapican 2507", "Santa Fe", "2507", "094778188",
-                "094778188", "Next Day Air", "Credit Card",
-                "Master card", "Mario Perez", "15341846135",
-                "05", "2020", "758");
-        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
+        checkOutPage.billingAddressSet("Uruguay","Montevideo", "lala123",
+                "7487", "099477811");
+        checkOutPage.shippingAddressSet("Uruguay","Montevideo","Agraciasda",
+                "3511", "094778188");
+        checkOutPage.setShippingMethod("method");
+        checkOutPage.setPaymentMethAndInfo("Credit Card", "Visa", "Raul Perez",
+                "5646510","05", "2020", "738");
+        checkOutConfirmationPage = checkOutPage.confirmOrder();
         homePage = checkOutConfirmationPage.goLogOut();
+        driver.quit();
     }
 
     @Test
     public void addToWishList() {
-//        //Reporte
-//        extentTest = extentReports.createTest(method.getName());
-//        extentTest.log(Status.INFO, "Buscando articulo " + object + "y agregandolo a la Wish List");
-        //Casos de Pruebas
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
         searchPage = homePage.searchElement("Nokia Lumia 1020");
-        searchPage.addToWishList("Nokia");
+        searchPage.addToWishList("Nokia Lumia 1020");
         wishListPage = searchPage.goWishListPage();
         Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
         homePage.goLogOut();
+        driver.quit();
     }
 
     @Test
-    public void comparteProducts(Method method, String object1, String object2){
-        //Reporte
-//        extentTest = extentReports.createTest(method.getName());
-//        extentTest.log(Status.INFO, "Comparando " + object1 + object2);
-        //Casos de Pruebas
+    public void comparteProducts(){
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
-        searchPage = homePage.searchElement("Nokia");
-        searchPage.addToCompareList("Nokia");
-        searchPage.addToCompareList("Nokia");
+        searchPage = homePage.searchElement("Ultrabook");
+        searchPage.addToCompareList("HP Spectre XT Pro UltraBook");
+        searchPage.addToCompareList("Samsung Series 9 NP900X4C Premium Ultrabook");
+        comparationPage = searchPage.goComparePage();
+    }
+
+    @Test
+    public void badLogin() {
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia12");
+    }
+
+    @Test
+    public void changeCurrency() {
 
     }
 }

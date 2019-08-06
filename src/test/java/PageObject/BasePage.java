@@ -15,6 +15,7 @@ public class BasePage {
     protected WebDriverWait wait;
     protected TopBar topBar;
     protected NavigationBar navigationBar;
+    protected FooterBar footerBar;
     protected static String productName;
 
     public BasePage(WebDriver driver) {
@@ -45,8 +46,9 @@ public class BasePage {
 
     public HomePage goLogOut() { return topBar.userLogOut(); }
 
-//    public ComparationPage goComparationPage() {return topBar.goComparationPage();}
+    public MyAccountPage goMyAccount () { return topBar.goMyAccount(); }
 
+    public ComparationPage goComparePage() {return footerBar.goComparationPage(); }
 
     public List<WebElement> findElements(By locator){ return SeleniumUtils.findElements(driver, locator); }
 

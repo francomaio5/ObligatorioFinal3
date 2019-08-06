@@ -8,50 +8,61 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
-public class CheckOutPage extends BasePage {
+public class CheckOutPage extends  BasePage{
 
-    //Elementos del Check Out Page
-    //1-Billing address
+    public CheckOutPage(WebDriver driver) {
+        super(driver);
+    }
 
+    //1- Billing address
     @FindBy(id = "ShipToSameAddress")
-    WebElement shipSameAddress;
-
-    @FindBy(id = "BillingNewAddress_Company")
-    WebElement billingNewCompany;
-
-    @FindBy(id = "BillingNewAddress_CountryId")
-    WebElement billingCountrySelect;
-
-    @FindBy(id = "BillingNewAddress_City")
-    WebElement billingNewCity;
-
-    @FindBy(id = "BillingNewAddress_Address1")
-    WebElement billingNewAddress1;
-
-    @FindBy(id = "BillingNewAddress_Address2")
-    WebElement billingNewAddress2;
-
-    @FindBy(id = "BillingNewAddress_ZipPostalCode")
-    WebElement billingNewZipCode;
-
-    @FindBy(id = "BillingNewAddress_PhoneNumber")
-    WebElement billingNewPhNumber;
-
-    @FindBy(id = "BillingNewAddress_FaxNumber")
-    WebElement billingNewFaxNumber;
+    WebElement shipToSameAddres;
 
     @FindBy(id = "billing-address-select")
-    WebElement billingAdressDrop;
+    WebElement billingAddressCombo;
+
+    @FindBy(name = "BillingNewAddress.CountryId")
+    WebElement billingCountry;
+
+    @FindBy(id = "BillingNewAddress_City")
+    WebElement billingCity;
+
+    @FindBy(id = "BillingNewAddress_Address1")
+    WebElement billingAddres1;
+
+    @FindBy(id = "BillingNewAddress_ZipPostalCode")
+    WebElement billingZipCode;
+
+    @FindBy(id = "BillingNewAddress_PhoneNumber")
+    WebElement billingPhNumber;
 
     @FindBy(className = "new-address-next-step-button")
     WebElement billingContinueBttn;
 
-    //2-Shipping Address
+    //2-Shipping address
+
+    @FindBy(css = "#shipping-address-select")
+    WebElement shippingAddressCombo;
+
+    @FindBy(name = "ShippingNewAddress.CountryId")
+    WebElement shippingCountryCombo;
+
+    @FindBy(name = "ShippingNewAddress.City")
+    WebElement shippingCity;
+
+    @FindBy(name = "ShippingNewAddress.Address1")
+    WebElement shippingAddress1;
+
+    @FindBy(name = "ShippingNewAddress.ZipPostalCode")
+    WebElement shippingZipCode;
+
+    @FindBy(name = "ShippingNewAddress.PhoneNumber")
+    WebElement shippingPhoneNumber;
 
     @FindBy(css = "#shipping-buttons-container .new-address-next-step-button")
-    WebElement shippingAddresContBttn;
+    WebElement shippingContinueBttn;
 
-    //3-Shipping Method
+    //3-Shipping method
 
     @FindBy(id = "shippingoption_0")
     WebElement groundShipping;
@@ -105,62 +116,66 @@ public class CheckOutPage extends BasePage {
     WebElement confirmOrderContinue;
 
 
-    public CheckOutPage(WebDriver driver) {
-        super(driver);
+
+    public void billingAddressSet (String billCountry, String billCity, String billAddres1, String  billZipCode,
+                                   String billPhNumb) {
+
+        boolean billingAddressIsSet = billingAddressCombo.isDisplayed();
+
+        if (billingAddressIsSet) {
+            Select addressBillSelect = new Select (billingAddressCombo);
+            addressBillSelect.selectByVisibleText("New Address");
+        } else {
+
+        }
+
+        SeleniumUtils.clickElement(shipToSameAddres, wait);
+        Select billingCountrySelect = new Select(billingCountry);
+        billingCountrySelect.selectByVisibleText(billCountry);
+        SeleniumUtils.sendText(billingCity, wait, billCity);
+        SeleniumUtils.sendText(billingAddres1, wait, billAddres1);
+        SeleniumUtils.sendText(billingZipCode, wait, billZipCode);
+        SeleniumUtils.sendText(billingPhNumber, wait, billPhNumb);
+        SeleniumUtils.clickElement(billingContinueBttn, wait);
     }
 
-    public CheckOutConfirmationPage doCheckOut (String company, String country, String city,
-                                                String address1, String address2, String zipCode,
-                                                String phNumber, String faxNumber, String shippingMethod,
-                                                String paymentMethod, String ccType,
-                                                String ccHolderName, String ccNumber,
-                                                String ccExpMonth, String ccExpYear, String ccCode) {
-        //1-Billing address
-        boolean isAddresSet = billingAdressDrop.isDisplayed();
+    public void shippingAddressSet (String shippCountry ,String shippCity, String shippAddres1, String  shippZipCode,
+                                    String shippPhNumb) {
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("shipping-address-select")));
+        Select addressShippingSelect = new Select(shippingAddressCombo);
+        addressShippingSelect.selectByVisibleText("New Address");
+        Select countryShipp = new Select(shippingCountryCombo);
+        countryShipp.selectByVisibleText(shippCountry);
+        SeleniumUtils.sendText(shippingCity, wait, shippCity );
+        SeleniumUtils.sendText(shippingAddress1, wait, shippAddres1);
+        SeleniumUtils.sendText(shippingZipCode, wait, shippZipCode);
+        SeleniumUtils.sendText(shippingPhoneNumber, wait, shippPhNumb);
+        SeleniumUtils.clickElement(shippingContinueBttn, wait);
 
-        //If que verifica si es o no el primer envío
-        if (isAddresSet) {
-            SeleniumUtils.clickElement(shipSameAddress, wait);
-            Select comboAddress = new Select(billingAdressDrop);
-            comboAddress.selectByVisibleText("New Address");
+    }
 
-        } else {
-            SeleniumUtils.clickElement(shipSameAddress, wait);
-        }
-
-        SeleniumUtils.sendText(billingNewCompany, wait, company);
-        Select comboCountry = new Select(billingCountrySelect);
-        comboCountry.selectByVisibleText(country);
-        SeleniumUtils.sendText(billingNewCity, wait, city);
-        SeleniumUtils.sendText(billingNewAddress1, wait, address1);
-        SeleniumUtils.sendText(billingNewAddress2, wait, address2);
-        SeleniumUtils.sendText(billingNewZipCode, wait, zipCode);
-        SeleniumUtils.sendText(billingNewPhNumber, wait, phNumber);
-        SeleniumUtils.sendText(billingNewFaxNumber, wait, faxNumber);
-        SeleniumUtils.clickElement(shipSameAddress, wait);
-        SeleniumUtils.clickElement(billingContinueBttn, wait);
-
-        //2-Shipping Address
-        if (isAddresSet == false){
-            SeleniumUtils.clickElement(shippingAddresContBttn, wait);}
-        //3-Shipping Method
-        if (shippingMethod.equals("Ground")) {
+    public void setShippingMethod (String shippingType) {
+        if (shippingType.equals("Ground")) {
             SeleniumUtils.clickElement(groundShipping, wait);
         }
-        else if (shippingMethod.equals("Next Day Air")) {
+        else if (shippingType.equals("Next Day Air")) {
             SeleniumUtils.clickElement(nextDayAirShipping, wait);
-        } else if (shippingMethod.equals("2nd Day Air")){
+        } else if (shippingType.equals("2nd Day Air")){
             SeleniumUtils.clickElement(scndDayAirShipping, wait);
         }
         SeleniumUtils.clickElement(shippingMethContinue, wait);
-        //4-Payment Method
+
+    }
+
+    public void setPaymentMethAndInfo (String paymentMethod, String ccType, String ccHolderName, String ccNumber,
+                                       String ccExpMonth,String ccExpYear, String ccCode) {
         if (paymentMethod.equals("Credit Card")) {
             SeleniumUtils.clickElement(creditCardOption, wait);
         } else {
             SeleniumUtils.clickElement(moneyOrderOption, wait);
         }
         SeleniumUtils.clickElement(paymentMethContinue, wait);
-        //5- Payment information
+        //Payment information
         if(paymentMethod.equals("Credit Card")) {
             SeleniumUtils.clickElement(creditCardType, wait);
             Select comboCreditCard = new Select(creditCardType);
@@ -177,11 +192,14 @@ public class CheckOutPage extends BasePage {
             SeleniumUtils.clickElement(paymentInfoContinue, wait);
         } else {
             SeleniumUtils.clickElement(paymentInfoContinue, wait); }
-        //6- Confirm order
+    }
+
+    public CheckOutConfirmationPage confirmOrder () {
         SeleniumUtils.clickElement(confirmOrderContinue, wait);
-
-
         return new CheckOutConfirmationPage(driver);
     }
 
-    }
+
+
+
+}

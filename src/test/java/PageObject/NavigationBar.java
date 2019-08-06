@@ -16,6 +16,7 @@ public class NavigationBar {
         this.driver = driver;
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
+
     }
 
     @FindBy(className = "search-box-text")

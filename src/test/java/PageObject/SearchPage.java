@@ -26,6 +26,7 @@ public class SearchPage extends BasePage {
     public void addToCart(String object) {
         for (ProductObject product : resultados) {
             if (product.getName().equals(object)) {
+                wait.until(ExpectedConditions.elementToBeClickable(product.getAddtoCartBttn()));
                 product.addToCart();
                 break;
             }
@@ -35,6 +36,7 @@ public class SearchPage extends BasePage {
     public void addToWishList(String object){
         for (ProductObject product : resultados){
             if (product.getName().equals(object)){
+                wait.until(ExpectedConditions.elementToBeClickable(product.getAddtoWishList()));
                 product.addToWish();
                 encontrado = true;
                 break;
@@ -45,8 +47,10 @@ public class SearchPage extends BasePage {
     public void addToCompareList(String object) {
         for (ProductObject product : resultados){
             if (product.getName().equals(object)){
+                wait.until(ExpectedConditions.elementToBeClickable(product.getCompareBttn()));
                 product.addToCompare();
                 encontrado = true;
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("bar-notification")));
                 break;
             }
         }

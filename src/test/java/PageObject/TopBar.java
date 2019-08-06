@@ -12,11 +12,13 @@ public class TopBar {
     WebDriver driver;
     WebDriverWait wait;
 
+
+
     public TopBar(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
-    }
+           }
 
     @FindBy(className = "ico-register")
     WebElement registerIcon;
@@ -32,6 +34,9 @@ public class TopBar {
 
     @FindBy(className = "wishlist-label")
     WebElement wishlistIcon;
+
+    @FindBy(className = "ico-account")
+    WebElement accountIcon;
 
     public LogInPage goLoginPage () {
         SeleniumUtils.clickElement(loginIcon, wait);
@@ -58,4 +63,10 @@ public class TopBar {
         SeleniumUtils.clickElement(wishlistIcon, wait);
         return new WishListPage(driver);
     }
+
+    public MyAccountPage goMyAccount () {
+        SeleniumUtils.clickElement(accountIcon, wait);
+        return new MyAccountPage(driver);
+    }
+
 }

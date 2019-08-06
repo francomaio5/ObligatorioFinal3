@@ -20,9 +20,9 @@ public class ComparationPage extends BasePage {
         }
     }
 
-    public boolean itsComparing(String object1, String object2) {
+    public boolean itsComparing(String object) {
         for (ComparationProduct product : productos) {
-            if (product.getName().equals(object1) && product.getName().equals(object2))
+            if (product.getName().equals(object))
                 return true;
         }
         return false;

@@ -23,6 +23,7 @@ public class BasePage {
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
         topBar = new TopBar(driver);
+        footerBar = new FooterBar(driver);
         navigationBar = new NavigationBar(driver);
     }
 

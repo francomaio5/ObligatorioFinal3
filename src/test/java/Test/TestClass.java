@@ -80,7 +80,12 @@ public class TestClass extends BaseTestClass {
         searchPage.addToCompareList("HP Spectre XT Pro UltraBook");
         searchPage.addToCompareList("Samsung Series 9 NP900X4C Premium Ultrabook");
         comparationPage = searchPage.goComparePage();
+        Assert.assertTrue(comparationPage.itsComparing("HP Spectre XT Pro UltraBook"));
+        //Assert.assertTrue(comparationPage.itsComparing("Samsung Series 9 NP900X4C Premium Ultrabook"));
+        homePage.goLogOut();
+        driver.quit();
     }
+
 
     @Test
     public void badLogin() {

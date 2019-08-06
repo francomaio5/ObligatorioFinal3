@@ -18,7 +18,7 @@ public class FooterBar {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//a[contains(text(),'Compare products list')]")
+    @FindBy(linkText = "Compare products list")
     WebElement compareBttn;
 
     public ComparationPage goComparationPage () {

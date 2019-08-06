@@ -39,6 +39,7 @@ public class SearchPage extends BasePage {
                 wait.until(ExpectedConditions.elementToBeClickable(product.getAddtoWishList()));
                 product.addToWish();
                 encontrado = true;
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("bar-notification")));
                 break;
             }
         }

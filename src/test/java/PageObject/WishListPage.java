@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +49,18 @@ public class WishListPage extends BasePage {
         }
     }
 
-    public boolean wishListPageTitle () {
+    public boolean wishListPageTitle() {
         return pageTitle.getText().contains("Wishlist");
     }
 
     public void updateWishList() {
         SeleniumUtils.clickElement(updateCartBttn, wait);
+    }
+
+    public boolean isWishListEmpty() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='no-data']")));
+        WebElement wishListStatus = driver.findElement(By.xpath("//div[@class='no-data']"));
+        return wishListStatus.getText().contains("The wishlist is empty!");
     }
 }
 

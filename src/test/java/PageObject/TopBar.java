@@ -41,6 +41,8 @@ public class TopBar {
     @FindBy(className = "ico-account")
     WebElement accountIcon;
 
+    CurrencyChange currencyChange;
+
     public LogInPage goLoginPage () {
         SeleniumUtils.clickElement(loginIcon, wait);
         return new LogInPage(driver);
@@ -76,6 +78,10 @@ public class TopBar {
     public MyAccountPage goMyAccount () {
         SeleniumUtils.clickElement(accountIcon, wait);
         return new MyAccountPage(driver);
+    }
+
+    public void cambioMondera (String moneda) {
+        currencyChange.currencyChose(moneda);
     }
 
 }

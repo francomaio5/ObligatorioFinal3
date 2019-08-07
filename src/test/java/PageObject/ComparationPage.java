@@ -3,6 +3,8 @@ package PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.List;
 public class ComparationPage extends BasePage {
 
     List<ComparationProduct> productos;
+
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
 
     public ComparationPage(WebDriver driver) {
         super(driver);
@@ -26,5 +31,9 @@ public class ComparationPage extends BasePage {
                 return true;
         }
         return false;
+    }
+
+    public boolean comparePageTitle () {
+        return pageTitle.getText().contains("Compare products");
     }
 }

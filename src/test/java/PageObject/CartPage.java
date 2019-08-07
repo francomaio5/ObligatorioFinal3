@@ -1,6 +1,7 @@
 package PageObject;
 
 import Utils.SeleniumUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,7 +36,7 @@ public class CartPage extends BasePage {
         return new CheckOutPage(driver);
     }
 
-    public boolean cartPageTitle () {
+    public boolean cartPageTitle() {
         return pageTitle.getText().contains("Shopping cart");
     }
 
@@ -52,4 +53,9 @@ public class CartPage extends BasePage {
         SeleniumUtils.clickElement(updateCartBttn, wait);
     }
 
+    public boolean isCartEmpty() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='no-data']")));
+        WebElement wishListStatus = driver.findElement(By.xpath("//div[@class='no-data']"));
+        return wishListStatus.getText().contains("Your Shopping Cart is empty!");
+    }
 }

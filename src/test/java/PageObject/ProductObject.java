@@ -43,5 +43,9 @@ public class ProductObject {
     }
 
     public void addToCompare() { element.findElement(By.className("add-to-compare-list-button")).click(); }
+
+    public String getValue(){
+        return element.findElement(By.className("actual-price")).getText();
+    }
 }
 

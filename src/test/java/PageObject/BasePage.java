@@ -53,6 +53,8 @@ public class BasePage {
 
     public List<WebElement> findElements(By locator){ return SeleniumUtils.findElements(driver, locator); }
 
+    public void cambioMoneda (String moneda) { topBar.cambioMondera(moneda); }
+
 //    public void changeCurrency(String moneda){ topBar.selectCurrency(moneda); }
 
 }

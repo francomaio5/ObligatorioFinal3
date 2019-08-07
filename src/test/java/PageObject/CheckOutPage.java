@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -13,6 +14,9 @@ public class CheckOutPage extends  BasePage{
     public CheckOutPage(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
 
     //1- Billing address
     @FindBy(id = "ShipToSameAddress")
@@ -199,6 +203,9 @@ public class CheckOutPage extends  BasePage{
         return new CheckOutConfirmationPage(driver);
     }
 
+    public boolean checkOutPageTitle () {
+        return pageTitle.getText().contains("Checkout");
+    }
 
 
 

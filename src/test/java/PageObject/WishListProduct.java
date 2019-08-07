@@ -13,10 +13,10 @@ public class WishListProduct {
     public String getName(){ return element.findElement(By.className("product")).getText();
     }
 
-    public void addToCart(){ element.findElement(By.id("addtocart")).click(); }
+//    public void addToCart(){ element.findElement(By.id("addtocart")).click(); }
 
     public void delete(){
-        element.findElement(By.id("removefromcart")).click();
+        element.findElement(By.name("removefromcart")).click();
     }
 
 }

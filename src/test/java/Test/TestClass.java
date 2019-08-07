@@ -1,12 +1,8 @@
 package Test;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Method;
 
 public class TestClass extends BaseTestClass {
 
@@ -28,14 +24,14 @@ public class TestClass extends BaseTestClass {
     public void checkOutEefectivo() {
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
-        //User is loged assert
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         searchPage = homePage.searchElement("Nokia Lumia 1020");
         Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
         searchPage.addToCart("Nokia Lumia 1020");
         cartPage = searchPage.goCartPage();
-        //Is on the cart page assert
+        Assert.assertTrue(cartPage.cartPageTitle());
         checkOutPage = cartPage.goCheckOutPage();
-        //Page tittle assert
+        Assert.assertTrue(checkOutPage.checkOutPageTitle());
         checkOutPage.billingAddressSet("Uruguay", "Montevideo", "lala123",
                 "7487", "099477811");
         checkOutPage.shippingAddressSet("Uruguay", "Montevideo", "Agraciasda",
@@ -44,7 +40,7 @@ public class TestClass extends BaseTestClass {
         checkOutPage.setPaymentMethAndInfo("No Credit Card", "", "",
                 "", "", "", "");
         checkOutConfirmationPage = checkOutPage.confirmOrder();
-        //Confirmation CheckOut assert
+        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
         homePage = checkOutConfirmationPage.goLogOut();
         driver.quit();
     }
@@ -53,23 +49,24 @@ public class TestClass extends BaseTestClass {
     public void checkOutCreditCard() {
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
-        //User is loged assert
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         searchPage = homePage.searchElement("Nokia Lumia 1020");
         Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
         searchPage.addToCart("Nokia Lumia 1020");
         cartPage = searchPage.goCartPage();
-        //Is on the cart page assert
+        Assert.assertTrue(cartPage.cartPageTitle());
         checkOutPage = cartPage.goCheckOutPage();
-        //Page tittle assert
+        Assert.assertTrue(checkOutPage.checkOutPageTitle());
         checkOutPage.billingAddressSet("Uruguay", "Montevideo", "lala123",
                 "7487", "099477811");
         checkOutPage.shippingAddressSet("Uruguay", "Montevideo", "Agraciasda",
                 "3511", "094778188");
-        checkOutPage.setShippingMethod("method");
-        checkOutPage.setPaymentMethAndInfo("Credit Card", "Visa", "Raul Perez",
-                "5646510", "05", "2020", "738");
+        checkOutPage.setShippingMethod("Next Day Air");
+        checkOutPage.setPaymentMethAndInfo("Non Credit Card", "",
+                "", "", "",
+                "", "");
         checkOutConfirmationPage = checkOutPage.confirmOrder();
-        //Confirmation CheckOut assert
+        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
         homePage = checkOutConfirmationPage.goLogOut();
         driver.quit();
     }
@@ -78,12 +75,12 @@ public class TestClass extends BaseTestClass {
     public void addToWishList() {
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
-        //User is loged assert
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         searchPage = homePage.searchElement("Nokia Lumia 1020");
         Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
         searchPage.addToWishList("Nokia Lumia 1020");
         wishListPage = searchPage.goWishListPage();
-        Assert.assertTrue(wishListPage.rigthPageTitle());
+        Assert.assertTrue(wishListPage.wishListPageTitle());
         Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
         homePage.goLogOut();
         driver.quit();
@@ -93,7 +90,7 @@ public class TestClass extends BaseTestClass {
     public void comparteProducts() {
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
-        //Usser is loged
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         searchPage = homePage.searchElement("Ultrabook");
         //Item 1 founded
         //Item 2 founded
@@ -111,26 +108,68 @@ public class TestClass extends BaseTestClass {
     @Test
     public void badLogin() {
         logInPage = homePage.goLoginPage();
+        Assert.assertTrue(logInPage.mailField().isDisplayed());
+        Assert.assertTrue(logInPage.passField().isDisplayed());
+        Assert.assertTrue(logInPage.logBttn().isDisplayed());
         homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia12");
-    }
-
-    @Test
-    public void changeCurrency() {
-
+        Assert.assertTrue(logInPage.wrongLogIn());
+        Assert.assertTrue(logInPage.passCleared());
+        logInPage.clearMail();
+        homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia1234");
+        //Crear un método que solo ingrese la password, porque el mail ya está
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        homePage.goLogOut();
+        driver.quit();
     }
 
     @Test
     public void changeEmail() {
-
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser("maildetest88@gmail.com", "lacontrasenia1234");
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        myAccountPage = homePage.goMyAccount();
+        myAccountPage.clearMail();
+        myAccountPage.completeNewMail("maildetest888@gmail.com");
+        myAccountPage.saveChanges();
+        homePage = myAccountPage.goLogOut();
+        homePage.goLoginPage();
+        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
     }
 
     @Test
-    public void clearCart() {
-
+    public void clearWishList() {
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        searchPage = homePage.searchElement("Nokia Lumia 1020");
+        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
+        searchPage.addToWishList("Nokia Lumia 1020");
+        wishListPage = searchPage.goWishListPage();
+        Assert.assertTrue(wishListPage.wishListPageTitle());
+        Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
+        wishListPage.deleteItem("Nokia Lumia 1020");
+        wishListPage.updateWishList();
+        Assert.assertFalse(wishListPage.isAtWishList("Nokia Lumia 1020"));
     }
 
     @Test
-    public void clearWishList(){
+    public void cleanCart() {
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        searchPage = homePage.searchElement("Nokia Lumia 1020");
+        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
+        searchPage.addToCart("Nokia Lumia 1020");
+        cartPage = searchPage.goCartPage();
+        cartPage.deleteItem("Nokia Lumia 1020");
+        //No hace click
+
+    }
+
+
+    @Test
+    public void changeCurrency() {
+
 
     }
 

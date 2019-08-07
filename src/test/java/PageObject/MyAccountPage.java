@@ -7,16 +7,29 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class MyAccountPage extends BasePage{
+public class MyAccountPage extends BasePage {
 
     public MyAccountPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//a[@class='inactive'][contains(text(),'Addresses')]")
-    WebElement addresIcon;
+    @FindBy(id = "Email")
+    WebElement emailField;
 
-    public void goAddress() {
-        SeleniumUtils.clickElement(addresIcon, wait);
+    @FindBy(id = "save-info-button")
+    WebElement saveChangesBttn;
+
+    public void clearMail() {
+        SeleniumUtils.clickElement(emailField, wait);
+        SeleniumUtils.clearTextField(emailField, wait);
+    }
+
+    public void completeNewMail(String newMail) {
+        SeleniumUtils.clickElement(emailField, wait);
+        SeleniumUtils.sendText(emailField, wait, newMail);
+    }
+
+    public void saveChanges () {
+        SeleniumUtils.clickElement(saveChangesBttn, wait);
     }
 }

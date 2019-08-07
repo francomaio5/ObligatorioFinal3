@@ -4,9 +4,14 @@ import Utils.SeleniumUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 public class CartPage extends BasePage {
+
+    List<CartProduct> productos;
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -18,20 +23,33 @@ public class CartPage extends BasePage {
     @FindBy(id = "checkout")
     WebElement checkOutBttn;
 
-    public CheckOutPage goCheckOutPage (){
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
+
+    @FindBy(name = "updatecart")
+    WebElement updateCartBttn;
+
+    public CheckOutPage goCheckOutPage() {
         SeleniumUtils.clickElement(termsofservCheckBox, wait);
         SeleniumUtils.clickElement(checkOutBttn, wait);
         return new CheckOutPage(driver);
     }
 
-//    public void clearCart(String object) {
-//        for (CartObject product : resultados) {
-//            if(product.getName().equals(object)) {
-//                wait.until(ExpectedConditions.elementToBeClickable(product.getClearBttn()));
-//                product.clearCart();
-//                encontrado = true;
-//                break;
-//            }
-//        }
-//    } -> Falta crear CartObject y probarlo
+    public boolean cartPageTitle () {
+        return pageTitle.getText().contains("Shopping cart");
+    }
+
+    public void deleteItem(String object) {
+        for (CartProduct product : productos) {
+            if (product.getName().equals(object)) {
+                product.delete();
+                break;
+            }
+        }
+    }
+
+    public void updateCart() {
+        SeleniumUtils.clickElement(updateCartBttn, wait);
+    }
+
 }

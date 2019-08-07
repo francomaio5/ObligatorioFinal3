@@ -19,6 +19,9 @@ public class WishListPage extends BasePage {
     @FindBy(how = How.TAG_NAME, using = "h1")
     WebElement pageTitle;
 
+    @FindBy(name = "updatecart")
+    WebElement updateCartBttn;
+
     public WishListPage(WebDriver driver) {
         super(driver);
         productos = new ArrayList<>();
@@ -36,8 +39,21 @@ public class WishListPage extends BasePage {
         return false;
     }
 
-    public boolean rigthPageTitle () {
+    public void deleteItem(String object) {
+        for (WishListProduct product : productos) {
+            if (product.getName().equals(object)) {
+                product.delete();
+                break;
+            }
+        }
+    }
+
+    public boolean wishListPageTitle () {
         return pageTitle.getText().contains("Wishlist");
+    }
+
+    public void updateWishList() {
+        SeleniumUtils.clickElement(updateCartBttn, wait);
     }
 }
 

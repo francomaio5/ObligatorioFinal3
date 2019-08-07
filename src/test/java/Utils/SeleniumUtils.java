@@ -25,6 +25,11 @@ public class SeleniumUtils {
         webElement.sendKeys(text);
     }
 
+    public static void clearTextField (WebElement webElement, WebDriverWait wait) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(webElement));
+        webElement.clear();
+    }
+
     public static void selectByValue(WebElement webElement,
                                      String value, WebDriverWait wait){
         wait.until(ExpectedConditions.visibilityOfAllElements(webElement));

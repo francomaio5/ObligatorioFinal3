@@ -22,6 +22,7 @@ public class TopBar {
         PageFactory.initElements(driver, this);
            }
 
+
     @FindBy(className = "ico-register")
     WebElement registerIcon;
 

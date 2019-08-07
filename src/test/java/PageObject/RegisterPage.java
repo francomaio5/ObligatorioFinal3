@@ -1,6 +1,7 @@
 package PageObject;
 
 import Utils.SeleniumUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,4 +41,22 @@ public class RegisterPage extends BasePage {
         SeleniumUtils.clickElement(registerBttn, wait);
         return new RegisterCompletePage(driver);
     }
+
+    public WebElement emailFieldIsDisplayed () {
+        return emailField;
+    }
+
+    public WebElement passFieldDisplayed (){
+        return passwordField;
+    }
+
+    public WebElement confPasswordDisplayed () {
+        return passwordConfirmField;
+    }
+
+    public WebElement contBttnDisplayed () {
+        return registerBttn;
+    }
+
+
 }

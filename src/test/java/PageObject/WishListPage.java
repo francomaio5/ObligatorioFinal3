@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ public class WishListPage extends BasePage {
 
     @FindBy(id = "addtocart")
     WebElement clickCart;
+
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
 
     public WishListPage(WebDriver driver) {
         super(driver);
@@ -30,6 +34,10 @@ public class WishListPage extends BasePage {
                 return true;
         }
         return false;
+    }
+
+    public boolean rigthPageTitle () {
+        return pageTitle.getText().contains("Wishlist");
     }
 }
 

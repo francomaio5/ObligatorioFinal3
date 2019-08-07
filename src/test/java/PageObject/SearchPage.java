@@ -45,6 +45,7 @@ public class SearchPage extends BasePage {
         }
     }
 
+
     public void addToCompareList(String object) {
         for (ProductObject product : resultados){
             if (product.getName().equals(object)){
@@ -56,6 +57,16 @@ public class SearchPage extends BasePage {
             }
         }
     }
+
+    public boolean objetoEncontrado(String object) {
+        for (ProductObject product : resultados) {
+            if (product.getName().equals(object))
+                return true;
+        }
+        return false;
+    }
+
+
 
 
 }

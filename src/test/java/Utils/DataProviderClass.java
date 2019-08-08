@@ -8,7 +8,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderCompleteRegister(){
         return new Object[][]
                 {
-                        {"Juan","Perez","maildetest54@gmail.com","pass00"}
+                        {"Juan","Perez","maildetest56@gmail.com","pass00"}
                 };
     }
 
@@ -16,7 +16,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderCheckOutEfectivo(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Nokia Lumia 1020","Uruguay", "Montevideo",
+                        {"maildetest56@gmail.com","pass00","Nokia Lumia 1020","Uruguay", "Montevideo",
                         "Avenida Italia 4744", "47444", "094778188", "Uruguay", "Montevideo",
                         "Zapican 2590", "11800", "094778188", "2nd Day Air", "Non Credit Card", "",
                         "", "", "", "", ""}
@@ -27,7 +27,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderCheckOutCreditCard(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Nokia Lumia 1020","Uruguay", "Montevideo",
+                        {"maildetest56@gmail.com","pass00","Nokia Lumia 1020","Uruguay", "Montevideo",
                                 "Avenida Italia 4744", "47444", "094778188", "Uruguay", "Montevideo",
                                 "Zapican 2590", "11800", "094778188", "Ground", "Credit Card", "Master card",
                                 "Juan Raul Perez", "5555555555554444", "08", "2021", "783"}
@@ -38,7 +38,11 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderAddWishList(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Nokia Lumia 1020"}
+                        {"maildetest56@gmail.com","pass00","Nokia Lumia 1020"},
+                        {"maildetest56@gmail.com", "pass00","HTC One M8 Android L 5.0 Lollipop"},
+                        {"maildetest56@gmail.com", "pass00","Asus N551JK-XO076H Laptop"},
+                        {"maildetest56@gmail.com", "pass00","Fahrenheit 451 by Ray Bradbury"},
+                        {"maildetest56@gmail.com", "pass00","Flower Girl Bracelet"}
                 };
     }
 
@@ -46,7 +50,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderCompareProducts(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Ultrabook", "HP Spectre XT Pro UltraBook",
+                        {"maildetest56@gmail.com","pass00","Ultrabook", "HP Spectre XT Pro UltraBook",
                                 "Samsung Series 9 NP900X4C Premium Ultrabook"}
                 };
     }
@@ -55,7 +59,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderBadLogIn(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass09","pass00"}
+                        {"maildetest56@gmail.com","pass09","pass00"}
                 };
     }
 
@@ -63,7 +67,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderClearWishList(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Nokia Lumia 1020"}
+                        {"maildetest56@gmail.com","pass00","Nokia Lumia 1020"}
                 };
     }
 
@@ -71,7 +75,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderClearCart(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","Nokia Lumia 1020"}
+                        {"maildetest56@gmail.com","pass00","Nokia Lumia 1020"}
                 };
     }
 
@@ -79,7 +83,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderChangeCurrency(){
         return new Object[][]
                 {
-                        {"Euro","maildetest54@gmail.com","pass00","Dolar"}
+                        {"Euro","maildetest56@gmail.com","pass00","Dolar"}
                 };
     }
 
@@ -87,7 +91,7 @@ public class DataProviderClass {
     public static Object[][] getDataFromDataProviderChangeEmail(){
         return new Object[][]
                 {
-                        {"maildetest54@gmail.com","pass00","maildetest55@gmail.com"}
+                        {"maildetest56@gmail.com","pass00","maildetest57@gmail.com", "pass001"}
                 };
     }
 }

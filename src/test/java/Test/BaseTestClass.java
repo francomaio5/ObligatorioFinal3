@@ -35,6 +35,7 @@ public class BaseTestClass {
     protected WishListPage wishListPage;
     protected MyAccountPage myAccountPage;
     protected ComparationPage comparationPage;
+    protected ChangePasswordPage changePasswordPage;
 
     //reportes
     protected static ExtentHtmlReporter extentHtmlReporter;

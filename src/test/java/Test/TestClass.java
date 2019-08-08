@@ -195,7 +195,8 @@ public class TestClass extends BaseTestClass {
     }
 
     @Test(dataProvider = "CP10testChangeMail",dataProviderClass = DataProviderClass.class)
-    public void CP10testChangeMail(String oldMail, String pass, String newMail, Method method) {
+    public void CP10testChangeMail(String oldMail, String pass, String newMail, String newPass,
+                                   Method method) {
         extentTest = extentReports.createTest(method.getName());
 
         logInPage = homePage.goLoginPage();
@@ -212,7 +213,15 @@ public class TestClass extends BaseTestClass {
         Assert.assertTrue(logInPage.logInPageTittle());
         homePage = logInPage.loginUser(newMail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        myAccountPage = homePage.goMyAccount();
+        changePasswordPage = myAccountPage.goChangePasswordPage();
+        changePasswordPage.changePasswordOk(pass, newPass);
+        homePage = changePasswordPage.goLogOut();
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser(newMail, newPass);
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         homePage.goLogOut();
+        Assert.assertTrue(homePage.userIsLogedOut().isDisplayed());
     }
 
 }

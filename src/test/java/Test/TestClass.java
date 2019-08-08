@@ -14,7 +14,7 @@ public class TestClass extends BaseTestClass {
         Assert.assertTrue(registerPage.confPasswordDisplayed().isDisplayed());
         Assert.assertTrue(registerPage.contBttnDisplayed().isDisplayed());
         registerCompletePage = registerPage.registerNewUser("Juan", "Gonzales",
-                "maildetest2@gmail.com", "lacontrasenia1234");
+                "maildetest26@gmail.com", "lacontrasenia1234");
         Assert.assertTrue(registerCompletePage.registerConfirm());
         Assert.assertTrue(registerCompletePage.logOutIconDisplayed().isDisplayed());
         homePage = registerCompletePage.goLogOut();
@@ -55,7 +55,7 @@ public class TestClass extends BaseTestClass {
         wishListPage = searchPage.goWishListPage();
         Assert.assertTrue(wishListPage.wishListPageTitle());
         Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
     @Test
@@ -71,10 +71,8 @@ public class TestClass extends BaseTestClass {
         comparationPage = searchPage.goComparePage();
         Assert.assertTrue(comparationPage.comparePageTitle());
         Assert.assertTrue(comparationPage.itsOnComparePage("HP Spectre XT Pro UltraBook"));
-        //Assert.assertTrue(comparationPage.itsOnComparePage("Samsung Series 9 NP900X4C Premium Ultrabook"));
-
-        //Assert.assertTrue(comparationPage.itsComparing("Samsung Series 9 NP900X4C Premium Ultrabook"));
-        homePage.goLogOut();
+        Assert.assertTrue(comparationPage.itsOnComparePage("Samsung Series 9 NP900X4C Premium Ultrabook"));
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
     @Test
@@ -95,7 +93,7 @@ public class TestClass extends BaseTestClass {
                 "3511", "094778188");
         checkOutPage.setShippingMethod("Next Day Air");
         checkOutPage.setPaymentMethAndInfo("Credit Card", "Master card",
-                "Raul Perez", "1234123412341234", "05",
+                "Raul Perez", "5555555555554444", "05",
                 "2020", "783");
         checkOutConfirmationPage = checkOutPage.confirmOrder();
         Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
@@ -115,7 +113,7 @@ public class TestClass extends BaseTestClass {
         homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
         //Crear un método que solo ingrese la password, porque el mail ya está
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
 
@@ -133,7 +131,7 @@ public class TestClass extends BaseTestClass {
         wishListPage.deleteItem("Nokia Lumia 1020");
         wishListPage.updateWishList();
         Assert.assertTrue(wishListPage.isWishListEmpty());
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();;
     }
 
     @Test
@@ -151,7 +149,7 @@ public class TestClass extends BaseTestClass {
         //No hace click
         cartPage.updateCart();
         Assert.assertTrue(cartPage.isCartEmpty());
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
     @Test
@@ -160,7 +158,7 @@ public class TestClass extends BaseTestClass {
         homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
         homePage.cambioMoneda("Dolar");
         Assert.assertTrue(homePage.verificarCambioMoneda("Dolar"));
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
     @Test
@@ -179,7 +177,7 @@ public class TestClass extends BaseTestClass {
         //Login page tittle assert
         homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        homePage.goLogOut();
+        homePage = checkOutConfirmationPage.goLogOut();
     }
 
 }

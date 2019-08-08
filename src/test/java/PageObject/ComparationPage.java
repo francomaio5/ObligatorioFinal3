@@ -19,22 +19,12 @@ public class ComparationPage extends BasePage {
     public ComparationPage(WebDriver driver) {
         super(driver);
         productos = new ArrayList<>();
-        List<WebElement> filas = findElements(By.cssSelector("tbody tr"));
+        List<WebElement> filas = findElements(By.className("table-wrapper"));
         for (WebElement fila : filas) {
             productos.add(new ComparationProduct(fila));
         }
     }
 
-    /*public boolean itsComparing(String object1, String object2) {
-        for (ComparationProduct product : productos) {
-            if (product.getName().equals(object1) & product.getName().equals(object2))
-                return true;
-        }
-        return false;
-    }
-*/
-    //Verificar que metodo realizamos para borrar el elemento del cart
-    //Aplicarlo a este método.!
     public boolean itsOnComparePage(String object) {
         for (ComparationProduct product : productos) {
             if (product.getName().equals(object));

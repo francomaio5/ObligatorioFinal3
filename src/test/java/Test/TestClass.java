@@ -177,8 +177,8 @@ public class TestClass extends BaseTestClass {
     public void changeCurrency() {
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
-        homePage.cambioMoneda("Euro");
-        Assert.assertTrue(homePage.verificarCambioMoneda("Euro"));
+        homePage.cambioMoneda("Dolar");
+        Assert.assertTrue(homePage.verificarCambioMoneda("Dolar"));
     }
 
 }

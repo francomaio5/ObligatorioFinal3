@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartPage extends BasePage {
@@ -16,7 +17,13 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
+        productos = new ArrayList<>();
+        List<WebElement> filas = findElements(By.cssSelector("table.cart tbody tr"));
+        for(WebElement fila : filas){
+            productos.add(new CartProduct(fila));
+        }
     }
+
 
     @FindBy(id = "termsofservice")
     WebElement termsofservCheckBox;
@@ -34,6 +41,7 @@ public class CartPage extends BasePage {
         SeleniumUtils.clickElement(termsofservCheckBox, wait);
         SeleniumUtils.clickElement(checkOutBttn, wait);
         return new CheckOutPage(driver);
+
     }
 
     public boolean cartPageTitle() {

@@ -14,12 +14,11 @@ public class TopBar {
     WebDriver driver;
     WebDriverWait wait;
 
-
-
     public TopBar(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
+        currencyChange = new CurrencyChange(driver);
            }
 
 

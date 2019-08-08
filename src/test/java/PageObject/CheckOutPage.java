@@ -124,13 +124,15 @@ public class CheckOutPage extends  BasePage{
     public void billingAddressSet (String billCountry, String billCity, String billAddres1, String  billZipCode,
                                    String billPhNumb) {
 
-        boolean billingAddressIsSet = billingAddressCombo.isDisplayed();
+        try {
+            boolean billingAddressIsSet = billingAddressCombo.isDisplayed();
+            if (billingAddressIsSet) {
+                Select addressBillSelect = new Select(billingAddressCombo);
+                addressBillSelect.selectByVisibleText("New Address");
 
-        if (billingAddressIsSet) {
-            Select addressBillSelect = new Select (billingAddressCombo);
-            addressBillSelect.selectByVisibleText("New Address");
-        } else {
-
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         SeleniumUtils.clickElement(shipToSameAddres, wait);

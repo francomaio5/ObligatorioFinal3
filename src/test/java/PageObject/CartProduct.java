@@ -14,6 +14,6 @@ public class CartProduct {
     public String getName(){ return element.findElement(By.className("product")).getText();
     }
     public void delete(){
-        element.findElement(By.id("removefromcart109925")).click();
+        element.findElement(By.name("removefromcart")).click();
     }
 }

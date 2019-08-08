@@ -55,6 +55,5 @@ public class BasePage {
 
     public void cambioMoneda (String moneda) { topBar.cambioMondera(moneda); }
 
-//    public void changeCurrency(String moneda){ topBar.selectCurrency(moneda); }
 
 }

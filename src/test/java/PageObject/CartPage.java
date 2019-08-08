@@ -41,7 +41,6 @@ public class CartPage extends BasePage {
         SeleniumUtils.clickElement(termsofservCheckBox, wait);
         SeleniumUtils.clickElement(checkOutBttn, wait);
         return new CheckOutPage(driver);
-
     }
 
     public boolean cartPageTitle() {

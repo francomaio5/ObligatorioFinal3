@@ -5,16 +5,16 @@
         <classes>
             <class name = "Test.TestClass">
                 <methods>
-                    <include name="testRegistro"/>
-                    <include name="checkOutEefectivo"/>
-                    <include name="addToWishList"/>
-                    <include name="comparteProducts"/>
-                    <include name="checkOutCreditCard"/>
-                    <include name="badLogin"/>
-                    <include name="clearWishList"/>
-                    <include name="cleanCart"/>
-                    <include name="changeCurrency"/>
-                    <include name="changeEmail"/>
+                    <include name="CP1testRegistroUsuario"/>
+                    <include name="CP2testCheckOutEfectivo"/>
+                    <include name="CP4testAgregarWishList"/>
+                    <include name="CP5testCompararProductos"/>
+                    <include name="CP3testCheckOutCreditCard"/>
+                    <include name="CP6logInIncorrecto"/>
+                    <include name="CP7testClearWishList"/>
+                    <include name="CP8testClearCart"/>
+                    <include name="CP9testChangeCurrency"/>
+                    <include name="CP10testChangeMail"/>
                 </methods>
             </class>
         </classes>

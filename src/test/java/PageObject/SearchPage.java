@@ -3,6 +3,8 @@ package PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ public class SearchPage extends BasePage {
 
     List<ProductObject> resultados;
     boolean encontrado;
+
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
 
     public SearchPage(WebDriver driver) {
         super(driver);
@@ -68,8 +73,9 @@ public class SearchPage extends BasePage {
     }
 
 
-
-
+    public boolean searchPageTitle() {
+        return pageTitle.getText().contains("Search");
+    }
 }
 
 

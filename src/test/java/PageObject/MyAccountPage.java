@@ -4,6 +4,7 @@ import Utils.SeleniumUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class MyAccountPage extends BasePage {
     @FindBy(id = "save-info-button")
     WebElement saveChangesBttn;
 
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
+
     public void clearMail() {
         SeleniumUtils.clickElement(emailField, wait);
         SeleniumUtils.clearTextField(emailField, wait);
@@ -31,5 +35,9 @@ public class MyAccountPage extends BasePage {
 
     public void saveChanges () {
         SeleniumUtils.clickElement(saveChangesBttn, wait);
+    }
+
+    public boolean myAccountTittle() {
+        return pageTitle.getText().contains("My account - Customer info");
     }
 }

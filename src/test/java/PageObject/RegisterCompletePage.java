@@ -14,7 +14,6 @@ public class RegisterCompletePage extends BasePage {
         return driver.findElement(By.className("page-body")).getText().contains("Your registration completed");
     }
 
-
     public WebElement logOutIconDisplayed () {
         return driver.findElement(By.className("ico-logout"));
     }

@@ -23,6 +23,9 @@ public class LogInPage extends BasePage {
     @FindBy(how = How.CLASS_NAME, using = "login-button")
     WebElement loginBttn;
 
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
+
     public HomePage loginUser(String userID, String userPassword) {
         SeleniumUtils.clickElement(emailField, wait);
         SeleniumUtils.sendText(emailField, wait, userID);
@@ -60,4 +63,7 @@ public class LogInPage extends BasePage {
         return passClear.getAttribute("value").isEmpty();
     }
 
+    public boolean logInPageTittle() {
+        return pageTitle.getText().contains("Welcome, Please Sign In!");
+    }
 }

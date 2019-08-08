@@ -12,7 +12,6 @@ public class ProductObject {
     WebElement element;
 
 
-
     public ProductObject(WebElement main) {
         this.element = main;
     }

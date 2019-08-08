@@ -36,10 +36,32 @@ public class BaseTestClass {
     protected MyAccountPage myAccountPage;
     protected ComparationPage comparationPage;
 
+    //reportes
+    protected static ExtentHtmlReporter extentHtmlReporter;
+    protected static ExtentReports extentReports;
+    protected static ExtentTest extentTest;
+
     @BeforeSuite(alwaysRun = true)
-    public void suiteSetUp () {
+    public void suiteSetUp() {
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         driver = new ChromeDriver();
+        setupReports();
+    }
+
+    public void setupReports() {
+        extentHtmlReporter = new ExtentHtmlReporter("reports/reporte.html");
+        extentHtmlReporter.config().setDocumentTitle("Automation Reports");
+        extentHtmlReporter.config().setReportName("Obligatorio Franco Maio - " +
+                "Reporte de Test Automatizados en el sitio demo.nopcommerce.com");
+        extentHtmlReporter.config().setTheme(Theme.STANDARD);
+
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(extentHtmlReporter);
+
+        extentReports.setSystemInfo("Ambiente", "Testing");
+        extentReports.setSystemInfo("Hostname", "nopcommerce");
+        extentReports.setSystemInfo("Sistema Operativo", OSInfo.getOSType().name());
+        extentReports.setSystemInfo("Obligatorio", "Franco Maio");
     }
 
     //Configuración para cada Método o Caso de Prueba
@@ -50,7 +72,26 @@ public class BaseTestClass {
         homePage = new HomePage(driver);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void teardownTest(ITestResult resultadoDeTest) throws IOException {
 
-
+        if (resultadoDeTest.getStatus() == ITestResult.FAILURE) {
+            extentTest.log(Status.FAIL, "Test Case " + resultadoDeTest.getName() + " failed");
+            extentTest.log(Status.FAIL, "Caused: " + resultadoDeTest.getThrowable());
+        } else if (resultadoDeTest.getStatus() == ITestResult.SKIP) {
+            extentTest.log(Status.SKIP, "Test Case " + resultadoDeTest.getName() + " skipped");
+            extentTest.log(Status.SKIP, "Caused: " + resultadoDeTest.getThrowable());
+        } else if (resultadoDeTest.getStatus() == ITestResult.SUCCESS) {
+            extentTest.log(Status.PASS, "Test Case " + resultadoDeTest.getName() + " passed");
+        }
     }
+
+
+    @AfterSuite(alwaysRun = true)
+    public void flush() {
+        extentReports.flush();
+        driver.quit();
+    }
+}
+
 

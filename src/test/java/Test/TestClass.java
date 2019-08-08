@@ -1,183 +1,218 @@
 package Test;
 
+import Utils.DataProviderClass;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.reflect.Method;
 
 
 public class TestClass extends BaseTestClass {
 
-    @Test
-    public void testRegistro() {
+    @Test(dataProvider = "CP1UserRegister",dataProviderClass = DataProviderClass.class)
+    public void CP1testRegistroUsuario(String nombre, String apellido, String mail,
+                                       String pass, Method method) {
+        extentTest = extentReports.createTest(method.getName());
         registerPage = homePage.goRegisterPage();
         Assert.assertTrue(registerPage.emailFieldIsDisplayed().isDisplayed());
         Assert.assertTrue(registerPage.passFieldDisplayed().isDisplayed());
         Assert.assertTrue(registerPage.confPasswordDisplayed().isDisplayed());
         Assert.assertTrue(registerPage.contBttnDisplayed().isDisplayed());
-        registerCompletePage = registerPage.registerNewUser("Juan", "Gonzales",
-                "maildetest26@gmail.com", "lacontrasenia1234");
+        registerCompletePage = registerPage.registerNewUser(nombre, apellido, mail, pass);
         Assert.assertTrue(registerCompletePage.registerConfirm());
         Assert.assertTrue(registerCompletePage.logOutIconDisplayed().isDisplayed());
         homePage = registerCompletePage.goLogOut();
     }
 
-    @Test
-    public void checkOutEefectivo() {
+    @Test(dataProvider = "CP2CheckOutEfectivo",dataProviderClass = DataProviderClass.class)
+    public void CP2testCheckOutEfectivo(String mail, String pass, String elemento, String billCountry,
+                                        String billCity, String billAddress, String billZipCode,
+                                        String billPhoneNumb, String shippCountry, String shippCity,
+                                        String shippAddress, String shippZipCode, String shippPhNumb,
+                                        String shippMethod, String paymentType, String ccType,
+                                        String ccHolderName, String ccNumber, String ccExpMonth,
+                                        String  ccExpYear, String ccCode, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Nokia Lumia 1020");
-        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
-        searchPage.addToCart("Nokia Lumia 1020");
+        searchPage = homePage.searchElement(elemento);
+        Assert.assertTrue(searchPage.objetoEncontrado(elemento));
+        searchPage.addToCart(elemento);
         cartPage = searchPage.goCartPage();
         Assert.assertTrue(cartPage.cartPageTitle());
         checkOutPage = cartPage.goCheckOutPage();
         Assert.assertTrue(checkOutPage.checkOutPageTitle());
-        checkOutPage.billingAddressSet("Uruguay", "Montevideo", "lala123",
-                "7487", "099477811");
-        checkOutPage.shippingAddressSet("Uruguay", "Montevideo", "Agraciasda",
-                "3511", "094778188");
-        checkOutPage.setShippingMethod("method");
-        checkOutPage.setPaymentMethAndInfo("No Credit Card", "", "",
-                "", "", "", "");
+        checkOutPage.billingAddressSet(billCountry, billCity, billAddress, billZipCode, billPhoneNumb);
+        checkOutPage.shippingAddressSet(shippCountry, shippCity, shippAddress, shippZipCode, shippPhNumb);
+        checkOutPage.setShippingMethod(shippMethod);
+        checkOutPage.setPaymentMethAndInfo(paymentType, ccType, ccHolderName, ccNumber, ccExpMonth,
+                ccExpYear, ccCode);
         checkOutConfirmationPage = checkOutPage.confirmOrder();
         Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
         homePage = checkOutConfirmationPage.goLogOut();
     }
 
-    @Test
-    public void addToWishList() {
+    @Test(dataProvider = "CP3CheckOutEfectivo",dataProviderClass = DataProviderClass.class)
+    public void CP3testCheckOutCreditCard(String mail, String pass, String elemento, String billCountry,
+                                          String billCity, String billAddress, String billZipCode,
+                                          String billPhoneNumb, String shippCountry, String shippCity,
+                                          String shippAddress, String shippZipCode, String shippPhNumb,
+                                          String shippMethod, String paymentType, String ccType,
+                                          String ccHolderName, String ccNumber, String ccExpMonth,
+                                          String  ccExpYear, String ccCode, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Nokia Lumia 1020");
-        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
-        searchPage.addToWishList("Nokia Lumia 1020");
+        searchPage = homePage.searchElement(elemento);
+        Assert.assertTrue(searchPage.objetoEncontrado(elemento));
+        searchPage.addToCart(elemento);
+        cartPage = searchPage.goCartPage();
+        Assert.assertTrue(cartPage.cartPageTitle());
+        checkOutPage = cartPage.goCheckOutPage();
+        Assert.assertTrue(checkOutPage.checkOutPageTitle());
+        checkOutPage.billingAddressSet(billCountry, billCity, billAddress, billZipCode, billPhoneNumb);
+        checkOutPage.shippingAddressSet(shippCountry, shippCity, shippAddress, shippZipCode, shippPhNumb);
+        checkOutPage.setShippingMethod(shippMethod);
+        checkOutPage.setPaymentMethAndInfo(paymentType, ccType, ccHolderName, ccNumber, ccExpMonth,
+                ccExpYear, ccCode);
+        checkOutConfirmationPage = checkOutPage.confirmOrder();
+        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
+        homePage = checkOutConfirmationPage.goLogOut();
+    }
+
+    @Test(dataProvider = "CP4AddWishList",dataProviderClass = DataProviderClass.class)
+    public void CP4testAgregarWishList(String mail, String pass, String elemento, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
+        logInPage = homePage.goLoginPage();
+        homePage = logInPage.loginUser(mail, pass);
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        searchPage = homePage.searchElement(elemento);
+        Assert.assertTrue(searchPage.searchPageTitle());
+        Assert.assertTrue(searchPage.objetoEncontrado(elemento));
+        searchPage.addToWishList(elemento);
         wishListPage = searchPage.goWishListPage();
         Assert.assertTrue(wishListPage.wishListPageTitle());
-        Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
-        homePage = checkOutConfirmationPage.goLogOut();
+        Assert.assertTrue(wishListPage.isAtWishList(elemento));
+        homePage = wishListPage.goLogOut();
     }
 
-    @Test
-    public void comparteProducts() {
+    @Test(dataProvider = "CP5CompararProductos",dataProviderClass = DataProviderClass.class)
+    public void CP5testCompararProductos(String mail, String pass, String keyWord, String elemento1,
+                                         String elemento2, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Ultrabook");
-        Assert.assertTrue(searchPage.objetoEncontrado("HP Spectre XT Pro UltraBook"));
-        Assert.assertTrue(searchPage.objetoEncontrado("Samsung Series 9 NP900X4C Premium Ultrabook"));
-        searchPage.addToCompareList("HP Spectre XT Pro UltraBook");
-        searchPage.addToCompareList("Samsung Series 9 NP900X4C Premium Ultrabook");
+        searchPage = homePage.searchElement(keyWord);
+        Assert.assertTrue(searchPage.objetoEncontrado(elemento1));
+        Assert.assertTrue(searchPage.objetoEncontrado(elemento2));
+        searchPage.addToCompareList(elemento1);
+        searchPage.addToCompareList(elemento2);
         comparationPage = searchPage.goComparePage();
         Assert.assertTrue(comparationPage.comparePageTitle());
-        Assert.assertTrue(comparationPage.itsOnComparePage("HP Spectre XT Pro UltraBook"));
-        Assert.assertTrue(comparationPage.itsOnComparePage("Samsung Series 9 NP900X4C Premium Ultrabook"));
-        homePage = checkOutConfirmationPage.goLogOut();
+        Assert.assertTrue(comparationPage.itsOnComparePage(elemento1));
+        Assert.assertTrue(comparationPage.itsOnComparePage(elemento2));
+        homePage = comparationPage.goLogOut();
     }
 
-    @Test
-    public void checkOutCreditCard() {
-        logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
-        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Nokia Lumia 1020");
-        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
-        searchPage.addToCart("Nokia Lumia 1020");
-        cartPage = searchPage.goCartPage();
-        Assert.assertTrue(cartPage.cartPageTitle());
-        checkOutPage = cartPage.goCheckOutPage();
-        Assert.assertTrue(checkOutPage.checkOutPageTitle());
-        checkOutPage.billingAddressSet("Uruguay", "Montevideo", "lala123",
-                "7487", "099477811");
-        checkOutPage.shippingAddressSet("Uruguay", "Montevideo", "Agraciasda",
-                "3511", "094778188");
-        checkOutPage.setShippingMethod("Next Day Air");
-        checkOutPage.setPaymentMethAndInfo("Credit Card", "Master card",
-                "Raul Perez", "5555555555554444", "05",
-                "2020", "783");
-        checkOutConfirmationPage = checkOutPage.confirmOrder();
-        Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
-        homePage = checkOutConfirmationPage.goLogOut();
-    }
+    @Test(dataProvider = "CP6logInIncorrecto",dataProviderClass = DataProviderClass.class)
+    public void CP6logInIncorrecto(String mail, String wrongPass, String pass, Method method) {
+        extentTest = extentReports.createTest(method.getName());
 
-    @Test
-    public void badLogin() {
         logInPage = homePage.goLoginPage();
         Assert.assertTrue(logInPage.mailField().isDisplayed());
         Assert.assertTrue(logInPage.passField().isDisplayed());
         Assert.assertTrue(logInPage.logBttn().isDisplayed());
-        homePage = logInPage.loginUser("maildetest8@gmail.com", "lacontrasenia12");
+        homePage = logInPage.loginUser(mail, wrongPass);
         Assert.assertTrue(logInPage.wrongLogIn());
         Assert.assertTrue(logInPage.passCleared());
         logInPage.clearMail();
-        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         //Crear un método que solo ingrese la password, porque el mail ya está
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        homePage = checkOutConfirmationPage.goLogOut();
+        homePage.goLogOut();
     }
 
 
-    @Test
-    public void clearWishList() {
+    @Test(dataProvider = "CP7testClearWishList",dataProviderClass = DataProviderClass.class)
+    public void CP7testClearWishList(String mail, String pass, String element, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Nokia Lumia 1020");
-        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
-        searchPage.addToWishList("Nokia Lumia 1020");
+        searchPage = homePage.searchElement(element);
+        Assert.assertTrue(searchPage.objetoEncontrado(element));
+        searchPage.addToWishList(element);
         wishListPage = searchPage.goWishListPage();
         Assert.assertTrue(wishListPage.wishListPageTitle());
-        Assert.assertTrue(wishListPage.isAtWishList("Nokia Lumia 1020"));
-        wishListPage.deleteItem("Nokia Lumia 1020");
+        Assert.assertTrue(wishListPage.isAtWishList(element));
+        wishListPage.deleteItem(element);
         wishListPage.updateWishList();
         Assert.assertTrue(wishListPage.isWishListEmpty());
-        homePage = checkOutConfirmationPage.goLogOut();;
+        homePage = wishListPage.goLogOut();
     }
 
-    @Test
-    public void cleanCart() {
+    @Test(dataProvider = "CP8testClearCart",dataProviderClass = DataProviderClass.class)
+    public void CP8testClearCart(String mail, String pass, String element, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(mail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        searchPage = homePage.searchElement("Nokia Lumia 1020");
-        //Assert page title
-        Assert.assertTrue(searchPage.objetoEncontrado("Nokia Lumia 1020"));
-        searchPage.addToCart("Nokia Lumia 1020");
+        searchPage = homePage.searchElement(element);
+        Assert.assertTrue(searchPage.searchPageTitle());
+        Assert.assertTrue(searchPage.objetoEncontrado(element));
+        searchPage.addToCart(element);
         cartPage = searchPage.goCartPage();
         Assert.assertTrue(cartPage.cartPageTitle());
-        cartPage.deleteItem("Nokia Lumia 1020");
-        //No hace click
+        cartPage.deleteItem(element);
         cartPage.updateCart();
         Assert.assertTrue(cartPage.isCartEmpty());
-        homePage = checkOutConfirmationPage.goLogOut();
+        homePage = cartPage.goLogOut();
     }
 
-    @Test
-    public void changeCurrency() {
+    @Test(dataProvider = "CP9testChangeCurrency",dataProviderClass = DataProviderClass.class)
+    public void CP9testChangeCurrency(String fstCurrency, String mail, String pass, String scnCurrency,
+                                      Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
+        homePage.cambioMoneda(fstCurrency);
+        Assert.assertTrue(homePage.verificarCambioMoneda(fstCurrency));
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest14@gmail.com", "lacontrasenia1234");
-        homePage.cambioMoneda("Dolar");
-        Assert.assertTrue(homePage.verificarCambioMoneda("Dolar"));
-        homePage = checkOutConfirmationPage.goLogOut();
+        Assert.assertTrue(logInPage.logInPageTittle());
+        homePage = logInPage.loginUser(mail, pass);
+        Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
+        homePage.cambioMoneda(scnCurrency);
+        Assert.assertTrue(homePage.verificarCambioMoneda(scnCurrency));
+        homePage.goLogOut();
     }
 
-    @Test
-    public void changeEmail() {
+    @Test(dataProvider = "CP10testChangeMail",dataProviderClass = DataProviderClass.class)
+    public void CP10testChangeMail(String oldMail, String pass, String newMail, Method method) {
+        extentTest = extentReports.createTest(method.getName());
+
         logInPage = homePage.goLoginPage();
-        homePage = logInPage.loginUser("maildetest88@gmail.com", "lacontrasenia1234");
+        homePage = logInPage.loginUser(oldMail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         myAccountPage = homePage.goMyAccount();
-        //My account page title assert
+        Assert.assertTrue(myAccountPage.myAccountTittle());
         myAccountPage.clearMail();
-        myAccountPage.completeNewMail("maildetest888@gmail.com");
+        myAccountPage.completeNewMail(newMail);
         myAccountPage.saveChanges();
         homePage = myAccountPage.goLogOut();
-        //User loged out asssert
+        Assert.assertTrue(homePage.userIsLogedOut().isDisplayed());
         homePage.goLoginPage();
-        //Login page tittle assert
-        homePage = logInPage.loginUser("maildetest888@gmail.com", "lacontrasenia1234");
+        Assert.assertTrue(logInPage.logInPageTittle());
+        homePage = logInPage.loginUser(newMail, pass);
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
-        homePage = checkOutConfirmationPage.goLogOut();
+        homePage.goLogOut();
     }
 
 }

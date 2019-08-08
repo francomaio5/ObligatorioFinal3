@@ -13,9 +13,6 @@ public class ComparationPage extends BasePage {
 
     List<ComparationProduct> productos;
 
-    @FindBy(how = How.TAG_NAME, using = "h1")
-    WebElement pageTitle;
-
     public ComparationPage(WebDriver driver) {
         super(driver);
         productos = new ArrayList<>();
@@ -24,6 +21,11 @@ public class ComparationPage extends BasePage {
             productos.add(new ComparationProduct(fila));
         }
     }
+
+    @FindBy(how = How.TAG_NAME, using = "h1")
+    WebElement pageTitle;
+
+
 
     public boolean itsOnComparePage(String object) {
         for (ComparationProduct product : productos) {

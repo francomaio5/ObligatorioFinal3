@@ -36,15 +36,20 @@ public class BaseTestClass {
     protected MyAccountPage myAccountPage;
     protected ComparationPage comparationPage;
 
+    @BeforeSuite(alwaysRun = true)
+    public void suiteSetUp () {
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
     //Configuración para cada Método o Caso de Prueba
     @BeforeMethod(alwaysRun = true)
     public void startSetup() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        driver = new ChromeDriver();
         driver.get("http://demo.nopcommerce.com/");
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
     }
+
 
 
     }

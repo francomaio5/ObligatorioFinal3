@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SingleSuite" verbose="1" parallel="tests" thread-count="2">
+    <test name="test in Chrome">
+        <classes>
+            <class name = "Test.TestClass">
+                <methods>
+                    <include name="testRegistro"/>
+                    <include name="checkOutEefectivo"/>
+                    <include name="addToWishList"/>
+                    <include name="comparteProducts"/>
+                    <include name="checkOutCreditCard"/>
+                    <include name="badLogin"/>
+                    <include name="clearWishList"/>
+                    <include name="cleanCart"/>
+                    <include name="changeCurrency"/>
+                    <include name="changeEmail"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

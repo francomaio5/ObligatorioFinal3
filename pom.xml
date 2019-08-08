@@ -67,7 +67,7 @@
                 <version>2.19.1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/java/TestOpenCart.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/java/nopCommerceTestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -129,8 +129,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
-
     </build>
 
 

@@ -25,9 +25,19 @@ public class ComparationPage extends BasePage {
         }
     }
 
-    public boolean itsComparing(String object) {
+    /*public boolean itsComparing(String object1, String object2) {
         for (ComparationProduct product : productos) {
-            if (product.getName().equals(object))
+            if (product.getName().equals(object1) & product.getName().equals(object2))
+                return true;
+        }
+        return false;
+    }
+*/
+    //Verificar que metodo realizamos para borrar el elemento del cart
+    //Aplicarlo a este método.!
+    public boolean itsOnComparePage(String object) {
+        for (ComparationProduct product : productos) {
+            if (product.getName().equals(object));
                 return true;
         }
         return false;

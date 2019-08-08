@@ -70,7 +70,9 @@ public class TestClass extends BaseTestClass {
         searchPage.addToCompareList("Samsung Series 9 NP900X4C Premium Ultrabook");
         comparationPage = searchPage.goComparePage();
         Assert.assertTrue(comparationPage.comparePageTitle());
-        //Assert.assertTrue(comparationPage.itsComparing("HP Spectre XT Pro UltraBook"));
+        Assert.assertTrue(comparationPage.itsOnComparePage("HP Spectre XT Pro UltraBook"));
+        //Assert.assertTrue(comparationPage.itsOnComparePage("Samsung Series 9 NP900X4C Premium Ultrabook"));
+
         //Assert.assertTrue(comparationPage.itsComparing("Samsung Series 9 NP900X4C Premium Ultrabook"));
         homePage.goLogOut();
     }
@@ -92,9 +94,9 @@ public class TestClass extends BaseTestClass {
         checkOutPage.shippingAddressSet("Uruguay", "Montevideo", "Agraciasda",
                 "3511", "094778188");
         checkOutPage.setShippingMethod("Next Day Air");
-        checkOutPage.setPaymentMethAndInfo("Credit Card", "",
-                "", "", "",
-                "", "");
+        checkOutPage.setPaymentMethAndInfo("Credit Card", "Master card",
+                "Raul Perez", "1234123412341234", "05",
+                "2020", "783");
         checkOutConfirmationPage = checkOutPage.confirmOrder();
         Assert.assertTrue(checkOutConfirmationPage.isOrderConfirmed());
         homePage = checkOutConfirmationPage.goLogOut();

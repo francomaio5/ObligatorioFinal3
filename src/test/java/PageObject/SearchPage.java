@@ -53,6 +53,7 @@ public class SearchPage extends BasePage {
                 product.addToCompare();
                 encontrado = true;
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("bar-notification")));
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("bar-notification")));
                 break;
             }
         }

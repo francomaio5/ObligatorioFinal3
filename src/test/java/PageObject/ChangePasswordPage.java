@@ -2,6 +2,7 @@ package PageObject;
 
 import Utils.SeleniumUtils;
 import com.gargoylesoftware.htmlunit.html.ScriptElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +16,7 @@ public class ChangePasswordPage extends BasePage {
     WebElement newPasswordField;
     @FindBy(id = "ConfirmNewPassword")
     WebElement confirmNewPasswordField;
-    @FindBy(className = "button-1 change-password-button")
+    @FindBy(how = How.XPATH, using ="//input[@class='button-1 change-password-button']")
     WebElement changePasswordBttn;
 
     public ChangePasswordPage(WebDriver driver) {
@@ -27,5 +28,10 @@ public class ChangePasswordPage extends BasePage {
         SeleniumUtils.sendText(newPasswordField, wait, newPassword);
         SeleniumUtils.sendText(confirmNewPasswordField, wait, newPassword);
         SeleniumUtils.clickElement(changePasswordBttn, wait);
+    }
+
+    public Boolean passwordWasChanged(){
+
+        return driver.findElement(By.xpath("//*[contains(text(),'Password was changed')]")).isDisplayed();
     }
 }

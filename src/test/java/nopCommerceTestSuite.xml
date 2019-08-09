@@ -14,7 +14,7 @@
                     <include name="CP7testClearWishList"/>
                     <include name="CP8testClearCart"/>
                     <include name="CP9testChangeCurrency"/>
-                    <include name="CP10testChangeMail"/>
+                    <include name="CP10testChangeMailandPassowrd"/>
                 </methods>
             </class>
         </classes>

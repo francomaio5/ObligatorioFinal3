@@ -134,7 +134,6 @@ public class TestClass extends BaseTestClass {
         Assert.assertTrue(logInPage.passCleared());
         logInPage.clearMail();
         homePage = logInPage.loginUser(mail, pass);
-        //Crear un método que solo ingrese la password, porque el mail ya está
         Assert.assertTrue(homePage.logOutIconDisplayed().isDisplayed());
         homePage.goLogOut();
     }
@@ -194,8 +193,8 @@ public class TestClass extends BaseTestClass {
         homePage.goLogOut();
     }
 
-    @Test(dataProvider = "CP10testChangeMail",dataProviderClass = DataProviderClass.class)
-    public void CP10testChangeMail(String oldMail, String pass, String newMail, String newPass,
+    @Test(dataProvider = "CP10testChangeMailandPassword",dataProviderClass = DataProviderClass.class)
+    public void CP10testChangeMailandPassowrd(String oldMail, String pass, String newMail, String newPass,
                                    Method method) {
         extentTest = extentReports.createTest(method.getName());
 
@@ -216,6 +215,7 @@ public class TestClass extends BaseTestClass {
         myAccountPage = homePage.goMyAccount();
         changePasswordPage = myAccountPage.goChangePasswordPage();
         changePasswordPage.changePasswordOk(pass, newPass);
+        Assert.assertTrue(changePasswordPage.passwordWasChanged());
         homePage = changePasswordPage.goLogOut();
         logInPage = homePage.goLoginPage();
         homePage = logInPage.loginUser(newMail, newPass);
